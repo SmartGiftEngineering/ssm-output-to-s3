@@ -18,6 +18,18 @@ try {
   const ssmClient = new SSM({ region: 'us-east-1' });
   const s3Client = new S3Client();
 
+  async function putEnvFileToS3({ body }) {
+    const uploadParams = {
+      Bucket: s3Bucket,
+      Key: s3File,
+      Body: body,
+      // ACL: 'authenticated-read',
+      // ContentType: 'env',
+    };
+    const putObjectCommandInput = new PutObjectCommand(uploadParams);
+    const s3Resp = await s3Client.send(putObjectCommandInput);
+    return s3Resp;
+  }
 
 
   const ssmParams = {
@@ -51,21 +63,7 @@ try {
     } catch (error) {
       return core.setFailed(error.message);
     }
-    
-    const putEnvFileToS3 = async ({
-      body,
-    }) => {
-      const uploadParams = {
-        Bucket: s3Bucket,
-        Key: s3File,
-        Body: body,
-        // ACL: 'authenticated-read',
-        // ContentType: 'env',
-      };
-      const putObjectCommandInput = new PutObjectCommand(uploadParams);
-      const s3Resp = await s3Client.send(putObjectCommandInput);
-      return s3Resp;
-  }});
+  });
 } catch (error) {
   core.setFailed(error.message);
 }
