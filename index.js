@@ -10,10 +10,6 @@ try {
   const s3Bucket = core.getInput('s3-bucket');
   const s3File = core.getInput('s3-file');
 
-  if (!process.env.AWS_ACCESS_KEY_ID || process.env.AWS_SECRET_ACCESS_KEY) {
-    return core.setFailed('AWS Credentials are missing');
-  }
-
   const ssmClient = new SSM({ region: 'us-east-1' });
   const s3Client = new S3Client();
 
