@@ -2,7 +2,15 @@
 
 This action reads values from AWS SSM and send outputs to the S3 file.
 
-In order to set the credentials please add https://github.com/aws-actions/configure-aws-credentials
+You should add following AWS credentials as env variables to your action env. Please make sure that you add them as secret!
+
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_REGION
+
+You can also use following action to configure AWS credentials:
+
+https://github.com/aws-actions/configure-aws-credentials
 
 ## Sample
 
