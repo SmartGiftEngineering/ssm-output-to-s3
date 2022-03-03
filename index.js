@@ -7,13 +7,12 @@ try {
   const ssmPath = core.getInput('ssm-path') || '/toffy/preprod/base';
   const additionalSsmPaths = core.getInput('ssm-additional-paths')?.trim()?.split(',') || ['/toffy/preprod/organization-service'];
 
-  const s3Bucket = core.getInput('s3-bucket') || 'smartgift-app-configs';
-  const s3File = core.getInput('s3-file') || 'corp-gifting/organization-service/organization-service.env';
+  const s3Bucket = core.getInput('s3-bucket');
+  const s3File = core.getInput('s3-file');
 
-  // const awsCredentials = {
-  //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  // };
+  if (!process.env.AWS_ACCESS_KEY_ID || process.env.AWS_SECRET_ACCESS_KEY) {
+    return core.setFailed('AWS Credentials are missing');
+  }
 
   const ssmClient = new SSM({ region: 'us-east-1' });
   const s3Client = new S3Client();
@@ -46,7 +45,7 @@ try {
     }
     const { InvalidParameters, Parameters } = data;
     if (InvalidParameters?.length) {
-      core.warning('invalid-parameters', InvalidParameters.join(','));
+      core.warning('invalid ssm paths', InvalidParameters.join(','));
     }
     const baseParameter = Parameters.find(p => p.Name === ssmPath);
     const additionalParameters = Parameters.filter(p => p.Name !== ssmPath);
