@@ -15,8 +15,8 @@ try {
   //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   // };
 
-  const ssmClient = new SSM({ region: 'us-east-1', credentials: awsCredentials });
-  const s3Client = new S3Client({ credentials: awsCredentials });
+  const ssmClient = new SSM({ region: 'us-east-1' });
+  const s3Client = new S3Client();
 
 
 
