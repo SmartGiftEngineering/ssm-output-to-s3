@@ -31,10 +31,10 @@ jobs:
         id: ssmToS3
         uses: SmartGiftEngineering/ssm-output-to-s3@0.1.1
         with:
-          ssm-path: '/toffy/preprod/base'
-          s3-bucket: 'smartgift-app-configs'
-          s3-file: 'corp-gifting/test-service/delete-me.env'
-          ssm-additional-paths: '/toffy/preprod/base/test-service' # Optional
+          ssm-path: '/my-app/production/my-variable'
+          s3-bucket: 'my-config-bucket'
+          s3-file: 'my-service/production/env'
+          ssm-additional-paths: '/my-app/production/my-variable-2' # Optional
       # Use the output from the `hello` step
       - name: The S3 Path for the env file
         run: echo "${{ steps.test-ssm-action.s3ObjectUrl }}"
