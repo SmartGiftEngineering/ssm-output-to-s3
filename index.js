@@ -4,13 +4,13 @@ const { SSM } = require("@aws-sdk/client-ssm");
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 try {
-  const ssmPath = core.getInput('ssm-path') || '/toffy/preprod/base';
-  const additionalSsmPaths = core.getInput('ssm-additional-paths')?.trim()?.split(',') || ['/toffy/preprod/organization-service'];
+  const ssmPath = core.getInput('ssm-path');
+  const additionalSsmPaths = core.getInput('ssm-additional-paths')?.trim()?.split(',') || [];
 
   const s3Bucket = core.getInput('s3-bucket');
   const s3File = core.getInput('s3-file');
 
-  const ssmClient = new SSM({ region: 'us-east-1' });
+  const ssmClient = new SSM();
   const s3Client = new S3Client();
 
   async function putEnvFileToS3({ body }) {

@@ -13,7 +13,6 @@ inputs:
   ssm-additional-paths:  # id of input
     description: 'Additional SSM paths, split with comma'
     required: false
-    default: 'World'
 outputs:
   s3ObjectUrl: # id of output
     description: 'The full path of the file in the bucket'
