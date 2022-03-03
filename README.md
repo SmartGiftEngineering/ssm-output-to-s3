@@ -45,7 +45,7 @@ The name of the S3 bucket
 
 ###### `s3-file`
 
-The path for the S3 file
+The S3 path for the output file
 
 ###### `ssm-additional-paths`
 
