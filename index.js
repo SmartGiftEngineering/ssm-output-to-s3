@@ -54,6 +54,7 @@ try {
     try {
       await putEnvFileToS3({ body: fileContent });
       const s3ObjectUrl = `https://${s3Bucket}.s3.amazonaws.com/${s3File}`;
+      core.info(`Successfully uploaded file to ${s3ObjectUrl}`);
       core.setOutput("s3ObjectUrl", s3ObjectUrl);
     } catch (error) {
       return core.setFailed(error.message);
